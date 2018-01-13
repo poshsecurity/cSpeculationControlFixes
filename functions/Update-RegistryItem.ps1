@@ -45,6 +45,13 @@ function Update-RegistryItem
         [String]
         $PropertyType
     )
+    # Test if the path exists
+    if (-not (Test-Path -Path $Path)) {
+        Write-Verbose -Message 'Path does not exist, Calling New-Item'
+        if ($PSCmdlet.ShouldProcess($Name, 'New-Item')) {
+            $null = New-Item $Path -ItemType Directory
+        }
+    }
 
     $Item = Get-Item -Path $Path
 

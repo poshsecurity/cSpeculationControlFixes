@@ -1,4 +1,5 @@
 $script:ModuleName = 'cSpeculationControlFixes'
+$script:DSCResourceName = 'cSpeculationControlFix'
 
 # Removes all versions of the module from the session before importing
 Get-Module $ModuleName | Remove-Module
@@ -13,90 +14,83 @@ if ((Split-Path $ModuleBase -Leaf) -eq 'Tests') {
 ## this variable is for the VSTS tasks and is to be used for refernecing any mock artifacts
 $Env:ModuleBase = $ModuleBase
 
-Import-Module $ModuleBase\$ModuleName.psd1 -PassThru -ErrorAction Stop | Out-Null
+# Load the Root module (we have one in this case)
+Import-Module $ModuleBase\$ModuleName.psd1 -PassThru -ErrorAction Stop -Force | Out-Null
 
-Describe "Basic unit tests of cSpeculationControlFix" -Tags Build , Unit {
-    $object = New-Object -TypeName cSpeculationControlFix
+# Load the Resource
+Import-Module "$ModuleBase\DSCResources\$DSCResourceName\$DSCResourceName.psm1" -PassThru -ErrorAction Stop -Force | Out-Null
 
-    Context 'Test()' {
-        It 'returns a bool when test() is called' {
-            $object.test() | should -BeOfType System.Boolean
-        }
-
-        It 'returns $true if status is enabled, and registry keys are set correctly' {
-            Mock -CommandName Test-RegistryItem -MockWith {
-                return $true
+InModuleScope -ModuleName $DSCResourceName {
+    Describe "Basic unit tests of cSpeculationControlFix" -Tags Build , Unit {
+        Context 'Get-TargetResource' {
+            It 'returns a System.Collections.Hashtable' {
+                Get-TargetResource -Status 'Enabled' | should beoftype System.Collections.Hashtable
             }
 
-            $object.status = 'Enabled'
-            $object.test() | should be $true
-        }
-
-        It 'returns $false if status is enabled, and registry keys are set incorrectly' {
-            Mock -CommandName Test-RegistryItem -MockWith {
-                return $false
+            It 'returns status == Enabled if SpeculationControl Registry keys are enabled' {
+                Mock -CommandName Test-RegistryItem -MockWith {
+                    return $true
+                }
+                (Get-TargetResource -Status 'Enabled').status | should be 'Enabled'
             }
 
-            $object.status = 'Enabled'
-            $object.test() | should be $false
+            It 'returns status == disabled if SpeculationControl Registry keys are enabled' {
+                Mock -CommandName Test-RegistryItem -MockWith {
+                    return $false
+                }
+
+                (Get-TargetResource -Status 'Disabled').status | should be 'Disabled'
+            }
         }
 
-        It 'returns $true if status is disabled, and registry keys are set correctly' {
-            Mock -CommandName Test-RegistryItem -MockWith {
-                return $false
+        Context 'Test-TargetResource' {
+            It 'returns a bool' {
+                Test-TargetResource -Status 'Enabled' | should -BeOfType System.Boolean
             }
 
-            $object.status = 'Disabled'
-            $object.test() | should be $true
-        }
-
-        It 'returns $false if status is enabled, and registry keys are set incorrectly' {
-            Mock -CommandName Test-RegistryItem -MockWith {
-                return $true
+            It 'returns $true if Status == Enabled and SpeculationControl Registry keys are enabled' {
+                Mock -CommandName Test-RegistryItem -MockWith {
+                    return $true
+                }
+                Test-TargetResource -Status 'Enabled' | should be $true
             }
 
-            $object.status = 'Disabled'
-            $object.test() | should be $false
-        }
-    }
-
-    Context 'Get()' {
-        It 'returns a cSpeculationControlFix when get() is called' {
-            $object.Get().GetType().Name | should be 'cSpeculationControlFix'
-        }
-
-        It 'returns Enabled if registry keys are set to enable the controlls correctly and get() is called' {
-            Mock -CommandName Test-RegistryItem -MockWith {
-                return $true
+            It 'returns $false if Status == Enabled and SpeculationControl Registry keys are not enabled' {
+                Mock -CommandName Test-RegistryItem -MockWith {
+                    return $false
+                }
+                Test-TargetResource -Status 'Enabled' | should be $false
             }
 
-            $object.get().status | should be 'Enabled'
-        }
-
-        It 'returns Enabled if registry keys are set to disable the controlls correctly and get() is called' {
-            Mock -CommandName Test-RegistryItem -MockWith {
-                return $false
+            It 'returns $true if Status == Disabled and SpeculationControl Registry keys are not enabled' {
+                Mock -CommandName Test-RegistryItem -MockWith {
+                    return $true
+                }
+                Test-TargetResource -Status 'Disabled' | should be $True
             }
 
-            $object.get().status | should be 'Disabled'
-        }
-    }
-
-    Context 'Set()' {
-        Mock -CommandName Update-RegistryItem -MockWith {}
-
-        It 'returns Null when set() is called' {
-            $object.set() | should be $null
+            It 'returns $false if Status == Disabled and SpeculationControl Registry keys are enabled' {
+                Mock -CommandName Test-RegistryItem -MockWith {
+                    return $false
+                }
+                Test-TargetResource -Status 'Disabled' | should be $false
+            }
         }
 
-        It 'calls Update-RegistryItem 3 times if it needs to enable the fixes' {
-            $Object.Status = 'Enabled'
-            $object.set() | Assert-MockCalled -CommandName 'Update-RegistryItem' -Times 3
-        }
+        Context 'Set-TargetResource' {
+            Mock -CommandName Update-RegistryItem -MockWith {}
 
-        It 'calls Update-RegistryItem 2 times if it needs to disable the fixes' {
-            $Object.Status = 'Disabled'
-            $object.set() | Assert-MockCalled -CommandName 'Update-RegistryItem' -Times 2
+            It 'returns Null when set() is called' {
+                Set-TargetResource -Status 'Enabled' | should be $null
+            }
+
+            It 'calls Update-RegistryItem 3 times if it needs to enable the fixes' {
+                Set-TargetResource -Status 'Enabled' | Assert-MockCalled -CommandName 'Update-RegistryItem' -Times 3
+            }
+
+            It 'calls Update-RegistryItem 2 times if it needs to disable the fixes' {
+                Set-TargetResource -Status 'Disabled'| Assert-MockCalled -CommandName 'Update-RegistryItem' -Times 2
+            }
         }
     }
 }

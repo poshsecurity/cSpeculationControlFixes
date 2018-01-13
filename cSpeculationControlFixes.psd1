@@ -9,7 +9,7 @@
 @{
 
 # Script module or binary module file associated with this manifest.
-# RootModule = ''
+RootModule = 'cSpeculationControlFixes.psm1'
 
 # Version number of this module.
 ModuleVersion = '0.1'
@@ -33,7 +33,7 @@ Copyright = '(c) 2018 Kieran Jacobsen. All rights reserved.'
 Description = 'PowerShell DSC for enabling Speculation Control fixes on Windows Server'
 
 # Minimum version of the Windows PowerShell engine required by this module
-PowerShellVersion = '5.0'
+PowerShellVersion = '4.0'
 
 # Name of the Windows PowerShell host required by this module
 # PowerShellHostName = ''
@@ -66,10 +66,10 @@ PowerShellVersion = '5.0'
 # FormatsToProcess = @()
 
 # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-NestedModules = @('dscresources\cSpeculationControlFix.psm1')
+# NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @()
+FunctionsToExport = @('Test-RegistryItem', 'Update-RegistryItem')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -81,7 +81,7 @@ VariablesToExport = '*'
 AliasesToExport = @()
 
 # DSC resources to export from this module
-DscResourcesToExport = @('cSpeculationControlFix')
+# DscResourcesToExport = @()
 
 # List of all modules packaged with this module
 # ModuleList = @()
@@ -95,7 +95,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @('Speculation', 'SpeculationControl', 'Spectre', 'Meltdown')
+        Tags = @('DesiredStateConfiguration', 'DSC', 'DSCResource', 'Speculation', 'SpeculationControl', 'Spectre', 'Meltdown', 'CPU')
 
         # A URL to the license for this module.
         # LicenseUri = ''
