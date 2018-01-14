@@ -1,10 +1,10 @@
 # cSpeculationControlFixes
 
-![Build Status](https://build.status.url.here)
+![Build Status](https://poshsecurity.visualstudio.com/_apis/public/build/definitions/3d8291e9-888c-4ff2-8223-f7eefdabecb7/30/badge)
 
 ## Description
 
-PowerShell DSC for enabling Speculation Control fixes on Windows Server
+PowerShell DSC for enabling Speculation Control fixes on Windows. This has been tested on Windows 10 and Windows Server 2016.
 
 Authored by Kieran Jacobsen
 

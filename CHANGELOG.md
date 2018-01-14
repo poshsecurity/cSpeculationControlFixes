@@ -1,19 +1,6 @@
 # cSpeculationControlFixes Release History
 
-## Version Number - Release Date
+## 0.1 - R2018-01-14
 
-### Fixed
-
-* First item fixed
-* Second item fixed
-
-### Added
-
-* New item added
-* Another new item added
-
-### Changed
-
-* Feature changed
-* Tests added
+* Initial version supporting enabling and disabling the Speculation Control Fixes in Windows
 
