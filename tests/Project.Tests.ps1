@@ -23,7 +23,7 @@ if ((Split-Path $ModuleBase -Leaf) -eq 'Tests') {
 Describe "PSScriptAnalyzer rule-sets" -Tag Build , ScriptAnalyzer {
 
     $Rules = Get-ScriptAnalyzerRule
-    $scripts = Get-ChildItem $ModuleBase -Include *.ps1, *.psm1, *.psd1 -Recurse | Where-Object fullname -notmatch 'Examples'
+    $scripts = Get-ChildItem $ModuleBase -Include *.ps1, *.psm1, *.psd1 -Recurse # | Where-Object fullname -notmatch 'Examples'
 
     foreach ( $Script in $scripts )
     {
