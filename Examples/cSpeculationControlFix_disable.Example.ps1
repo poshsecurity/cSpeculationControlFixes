@@ -1,7 +1,7 @@
-Configuration EnableSpeculationControl
+Configuration DisableSpeculationControl
 {
     Import-DscResource -Module cSpeculationControlFixes
-    cSpeculationControlFix enableSpeculationControlFix
+    cSpeculationControlFix DisableSpeculationControlFix
     {
         Status = 'Disabled'
     }
