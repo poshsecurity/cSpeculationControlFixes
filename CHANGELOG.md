@@ -1,5 +1,9 @@
 # cSpeculationControlFixes Release History
 
+## 0.3 - 2018-01-29
+
+* Added support for forcing the AV Compatbility flag
+
 ## 0.2 - 2018-01-29
 
 * Added support for disabling Spectre Variant 2 Fixes
