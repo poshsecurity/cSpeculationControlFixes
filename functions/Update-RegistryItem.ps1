@@ -7,15 +7,15 @@
 
     The reason for me to create this was to simplify DSC resources.
 
-    .PARAMETER Confirm
-    Prompts you for confirmation before running the cmdlet.
-
-    .PARAMETER WhatIf
-    Shows what would happen if the cmdlet runs. The cmdlet is not run.
-
     .EXAMPLE
     Update-RegistryItem -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management' -Name 'FeatureSettingsOverride' -Value 0 -PropertyType 'DWORD'
     Sets or creates the registry value FeatureSettingsOverride at HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management to 0.
+
+    .PARAMETER confirm
+    Prompts you for confirmation before running the cmdlet.
+
+    .PARAMETER whatif
+    Shows what would happen if the cmdlet runs. The cmdlet is not run.
 #>
 function Update-RegistryItem
 {

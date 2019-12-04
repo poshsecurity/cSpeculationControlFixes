@@ -4,9 +4,19 @@
 
 ## Description
 
-PowerShell DSC for enabling Speculation Control fixes on Windows. This has been tested on Windows 10 and Windows Server 2016.
+PowerShell DSC for enabling Speculation Control fixes on Windows. Authored by Kieran Jacobsen
 
-Authored by Kieran Jacobsen
+The Microsoft KB [Windows Server guidance to protect against speculative execution side-channel vulnerabilities](https://support.microsoft.com/en-us/help/4072698/windows-server-speculative-execution-side-channel-vulnerabilities-prot) provides a number of options on what speculative controls you can implement, use the table below to map the titles of each mitgation in the KB with the mitigation names in the DSC module.
+
+| Title in KB | Mitigation in DSC |
+| --- | --- |
+| Manage mitigations for CVE-2017-5715 (Spectre Variant 2) and CVE-2017-5754 (Meltdown) |SpectreVariant2Meltdown |
+| Manage the mitigation for CVE-2017-5715 (Spectre Variant 2) | SpectreVariant2 |
+| AMD processors only: Enable the full mitigation for CVE-2017-5715 (Spectre Variant 2) | AMDOnlySpectreVariant2 |
+| Manage mitigations for CVE-2018-3639 (Speculative Store Bypass), CVE-2017-5715 (Spectre Variant 2), and CVE-2017-5754 (Meltdown) | SpeculativeStoreSpectreVariant2Meltdown |
+| AMD processors only: Enable the full mitigation for CVE-2017-5715 (Spectre Variant 2) and CVE 2018-3639 (Speculative Store Bypass) | AMDOnlySpeculativeStoreSpectreVariant2 |
+|Manage Intel® Transactional Synchronization Extensions (Intel® TSX) Transaction Asynchronous Abort vulnerability (CVE-2019-11135) and Microarchitectural Data Sampling (CVE-2018-11091, CVE-2018-12126, CVE-2018-12127, CVE-2018-12130) along with Spectre [ CVE-2017-5753 & CVE-2017-5715 ] and Meltdown [ CVE-2017-5754 ] variants, including Speculative Store Bypass Disable (SSBD) [ CVE-2018-3639 ] as well as L1 Terminal Fault (L1TF) [ CVE-2018-3615, CVE-2018-3620, and CVE-2018-3646 ] **without disabling Hyper-Threading**  | IntelTSXDataSamplingSpectreMeltdownSpeculativeStoreL1TerminalFaultWithHT |
+|Manage Intel® Transactional Synchronization Extensions (Intel® TSX) Transaction Asynchronous Abort vulnerability (CVE-2019-11135) and Microarchitectural Data Sampling (CVE-2018-11091, CVE-2018-12126, CVE-2018-12127, CVE-2018-12130) along with Spectre [ CVE-2017-5753 & CVE-2017-5715 ] and Meltdown [ CVE-2017-5754 ] variants, including Speculative Store Bypass Disable (SSBD) [ CVE-2018-3639 ] as well as L1 Terminal Fault (L1TF) [ CVE-2018-3615, CVE-2018-3620, and CVE-2018-3646 ] **with Hyper-Threading disabled**| IntelTSXDataSamplingSpectreMeltdownSpeculativeStoreL1TerminalFaultWithoutHT |
 
 ## Installing
 

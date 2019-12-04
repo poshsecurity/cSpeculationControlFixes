@@ -1,5 +1,0 @@
-[ClassVersion("1.0.0"), FriendlyName("cSpeculationControlFix")]
-class cSpeculationControlFix : OMI_BaseResource
-{
-	[Key] string Status;
-};

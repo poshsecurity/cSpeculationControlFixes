@@ -1,5 +1,0 @@
-[ClassVersion("1.0.0"), FriendlyName("cSpectreVariant2")]
-class cSpectreVariant2 : OMI_BaseResource
-{
-	[Key] string Status;
-};

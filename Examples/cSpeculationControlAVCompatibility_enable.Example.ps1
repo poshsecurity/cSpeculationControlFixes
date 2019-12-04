@@ -1,6 +1,6 @@
 Configuration EnablecSpeculationControlAVCompatibility
 {
-    Import-DscResource -Module cSpeculationControlFixes
+    Import-DscResource -ModuleName cSpeculationControlFixes
     cSpeculationControlAVCompatibility enablecSpeculationControlAVCompatibility
     {
         Status = 'Enabled'

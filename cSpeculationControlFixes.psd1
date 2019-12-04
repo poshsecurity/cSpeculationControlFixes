@@ -12,7 +12,7 @@
 RootModule = 'cSpeculationControlFixes.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.4'
+ModuleVersion = '1.0'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -27,7 +27,7 @@ Author = 'Kieran Jacobsen'
 CompanyName = 'Kieran Jacobsen'
 
 # Copyright statement for this module
-Copyright = '(c) 2018 Kieran Jacobsen. All rights reserved.'
+Copyright = '(c) 2019 Kieran Jacobsen. All rights reserved.'
 
 # Description of the functionality provided by this module
 Description = 'PowerShell DSC for enabling Speculation Control fixes on Windows Server'
@@ -69,7 +69,7 @@ PowerShellVersion = '4.0'
 # NestedModules = @()
 
 # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-FunctionsToExport = @('Test-RegistryItem', 'Update-RegistryItem')
+FunctionsToExport = @('Test-RegistryItem', 'Update-RegistryItem', 'Remove-RegistryItem')
 
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = @()
@@ -81,7 +81,7 @@ VariablesToExport = '*'
 AliasesToExport = @()
 
 # DSC resources to export from this module
-DscResourcesToExport = @('cSpeculationControlFix', 'cSpectreVariant2', 'cSpeculationControlAVCompatibility')
+DscResourcesToExport = @('cSpeculationControlMitigations', 'cSpeculationControlAVCompatibility')
 
 # List of all modules packaged with this module
 # ModuleList = @()

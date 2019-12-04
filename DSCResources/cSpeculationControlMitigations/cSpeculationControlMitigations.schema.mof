@@ -1,0 +1,6 @@
+[ClassVersion("1.0.0"), FriendlyName("cSpeculationControlMitigations")]
+class cSpeculationControlMitigations : OMI_BaseResource
+{
+	[Key] string Status;
+	[Required] string Mitigations;
+};
